@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EjemploOracle.DataAccess\EjemploOracle.DataAccess.csproj" />
+    <ProjectReference Include="..\EjemploOracle.DTO\EjemploOracle.DTO.csproj" />
+    <ProjectReference Include="..\EjemploOracle.Services\EjemploOracle.Services.csproj" />
   </ItemGroup>
 
 </Project>

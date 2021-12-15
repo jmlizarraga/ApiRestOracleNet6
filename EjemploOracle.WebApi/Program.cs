@@ -1,4 +1,5 @@
 using EjemploOracle.DataAccess.Models;
+using EjemploOracle.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<ModelContext>(x =>
         options => options.UseOracleSQLCompatibility("11")
     )
 );
+
+builder.Services.AddTransient<ICategoriaService, CategoriaService>();
 
 
 builder.Services.AddControllers();

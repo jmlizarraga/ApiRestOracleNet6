@@ -1,7 +1,10 @@
 ﻿using EjemploOracle.DataAccess.Models;
+using EjemploOracle.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using EjemploOracle.WebApi.Mappings;
+using EjemploOracle.DTO;
 
 namespace EjemploOracle.WebApi.Controllers
 {
@@ -9,90 +12,66 @@ namespace EjemploOracle.WebApi.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private ModelContext _context;
+        private readonly ICategoriaService _servicio;
 
-        public CategoriaController(ModelContext context)
+        public CategoriaController(ICategoriaService servicio)
         {
-            _context = context;
+            _servicio = servicio;
         }
 
         [HttpGet]
-        public async Task<List<Categorium>> Listar()
+        public async Task<ActionResult<List<CategoriaDTO>>> Listar()
         {
-            return await _context.Categoria.ToListAsync();
+            var retorno = await _servicio.Listar();
+
+            if (retorno.Objeto != null)
+                return retorno.Objeto.Select(Mapper.ToDTO).ToList();
+            else
+                return StatusCode(retorno.Status, retorno.Error);   
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Categorium>> BuscarPorId(decimal id)
+        public async Task<ActionResult<CategoriaDTO>> BuscarPorId(decimal id)
         {
-            var retorno = await _context.Categoria.FirstOrDefaultAsync(x => x.Id == id);
+            var retorno = await _servicio.BuscarPorId(id);
 
-            if (retorno != null)
-                return retorno;
+            if (retorno.Objeto != null)
+                return retorno.Objeto.ToDTO();
             else
-                return NotFound();
+                return StatusCode(retorno.Status, retorno.Error);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Categorium>> Guardar(Categorium c)
+        public async Task<ActionResult<CategoriaDTO>> Guardar(CategoriaDTO c)
         {
-            try
-            {
-                await _context.Categoria.AddAsync(c);
-                await _context.SaveChangesAsync();
-                c.Id = await _context.Categoria.MaxAsync(u => u.Id);
+            var retorno = await _servicio.Guardar(c.ToDatabase());
 
-                return c;
-            }
-            catch (DbUpdateException)
-            {
-                return StatusCode(500, "Se encontró un error");
-            }
+            if (retorno.Objeto != null)
+                return retorno.Objeto.ToDTO();
+            else
+                return StatusCode(retorno.Status, retorno.Error);
         }
 
         [HttpPut]
-        public async Task<ActionResult<Categorium>> Actualizar(Categorium c)
+        public async Task<ActionResult<CategoriaDTO>> Actualizar(CategoriaDTO c)
         {
-            if (c == null || c.Id == 0)
-                return BadRequest("Faltan datos");
+            var retorno = await _servicio.Actualizar(c.ToDatabase());
 
-            Categorium cat = await _context.Categoria.FirstOrDefaultAsync(x => x.Id == c.Id);
-
-            if (cat == null)
-                return NotFound();
-
-            try
-            {
-                cat.Nombre = c.Nombre;
-                _context.Categoria.Update(cat);
-                await _context.SaveChangesAsync();
-
-                return cat;
-            }
-            catch (DbUpdateException)
-            {
-                return StatusCode(500, "Se encontró un error");
-            }
+            if (retorno.Objeto != null)
+                return retorno.Objeto.ToDTO();
+            else
+                return StatusCode(retorno.Status, retorno.Error);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Eliminar(decimal id)
         {
-            Categorium cat = await _context.Categoria.FirstOrDefaultAsync(x => x.Id == id);
+            var retorno = await _servicio.Eliminar(id);
 
-            if (cat == null)
-                return NotFound();
-
-            try
-            {
-                _context.Categoria.Remove(cat);
-                await _context.SaveChangesAsync();
+            if (retorno.Exito)
                 return true;
-            }
-            catch (DbUpdateException)
-            {
-                return StatusCode(500, "Se encontró un error");
-            }
+            else
+                return StatusCode(retorno.Status, retorno.Error);
         }
     }
 }

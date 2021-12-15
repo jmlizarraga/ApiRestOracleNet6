@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EjemploOracle.WebApi", "EjemploOracle.WebApi\EjemploOracle.WebApi.csproj", "{7B256DD5-1ECC-45E0-A765-287EAEA2A841}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploOracle.DataAccess", "EjemploOracle.DataAccess\EjemploOracle.DataAccess.csproj", "{30708196-DEA9-47B7-B888-1E6CDD7EB9A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EjemploOracle.DataAccess", "EjemploOracle.DataAccess\EjemploOracle.DataAccess.csproj", "{30708196-DEA9-47B7-B888-1E6CDD7EB9A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploOracle.Services", "EjemploOracle.Services\EjemploOracle.Services.csproj", "{712A606A-4A80-4085-AE95-19D3363825A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploOracle.DTO", "EjemploOracle.DTO\EjemploOracle.DTO.csproj", "{17A807E6-4E77-4D97-ACAF-44BC958CC834}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{30708196-DEA9-47B7-B888-1E6CDD7EB9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30708196-DEA9-47B7-B888-1E6CDD7EB9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30708196-DEA9-47B7-B888-1E6CDD7EB9A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712A606A-4A80-4085-AE95-19D3363825A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712A606A-4A80-4085-AE95-19D3363825A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712A606A-4A80-4085-AE95-19D3363825A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712A606A-4A80-4085-AE95-19D3363825A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A807E6-4E77-4D97-ACAF-44BC958CC834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A807E6-4E77-4D97-ACAF-44BC958CC834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A807E6-4E77-4D97-ACAF-44BC958CC834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A807E6-4E77-4D97-ACAF-44BC958CC834}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
